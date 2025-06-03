@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivAlert - La voix du citoyen</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container-header">
+            <div class="logo">
+                <h1>CivAlert</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#odd16">Objectif ODD 16</a></li>
+                    <li><a href="#report">Signaler</a></li>
+                    <li><a href="#map">Carte</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#dashboard" class="btn-login">Espace partenaire</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>La voix du citoyen, pour une justice accessible</h2>
+                <p>Signalez anonymement des cas de corruption, d'abus de pouvoir ou d'injustices dans votre communauté.</p>
+                <div class="hero-buttons">
+                    <a href="#report" class="btn-primary">Faire un signalement</a>
+                    <a href="#map" class="btn-secondary">Voir les signalements</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="odd16" class="about-odd16">
+        <h2 class="section-title"> ODD 16 : Paix, justice et institutions efficaces</h2>
+            <p class="section-subtitle">
+              Promouvoir l'avènement de sociétés pacifiques et inclusives pour le développement durable, <br>assurer l'accès de tous à la justice et mettre en place des institutions efficaces, responsables et ouvertes à tous.
+            </p>
+
+        <div class="objectives-container">
+        <!-- Objectif 1 -->
+        <div class="objective-card">
+            <div class="objective-number">1</div>
+            <div class="objective-content">
+                <h3>Réduction de la violence</h3>
+                <p>Réduire toutes les formes de violence et les taux de mortalité y afférents.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 2 -->
+        <div class="objective-card">
+            <div class="objective-number">2</div>
+            <div class="objective-content">
+                <h3>Protection des enfants</h3>
+                <p>Mettre fin à la maltraitance, à l'exploitation, à la traite et à la violence contre les enfants.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 3 -->
+        <div class="objective-card">
+            <div class="objective-number">3</div>
+            <div class="objective-content">
+                <h3>Accès à la justice</h3>
+                <p>Promouvoir l'état de droit et garantir un égal accès à la justice.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 4 -->
+        <div class="objective-card">
+            <div class="objective-number">4</div>
+            <div class="objective-content">
+                <h3>Lutte contre la corruption</h3>
+                <p>Réduire la corruption et les pratiques illicites.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 5 -->
+        <div class="objective-card">
+            <div class="objective-number">5</div>
+            <div class="objective-content">
+                <h3>Institutions efficaces</h3>
+                <p>Établir des institutions efficaces, transparentes et responsables.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 6 -->
+        <div class="objective-card">
+            <div class="objective-number">6</div>
+            <div class="objective-content">
+                <h3>Prise de décision inclusive</h3>
+                <p>Garantir une prise de décision inclusive, participative et représentative.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 7 -->
+        <div class="objective-card">
+            <div class="objective-number">7</div>
+            <div class="objective-content">
+                <h3>Accès à l'information</h3>
+                <p>Accès public à l'information et protection des libertés fondamentales.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 8 -->
+        <div class="objective-card">
+            <div class="objective-number">8</div>
+            <div class="objective-content">
+                <h3>Lutte contre la criminalité</h3>
+                <p>Renforcer les institutions nationales pour prévenir la violence et lutter contre le terrorisme et la criminalité.</p>
+            </div>
+        </div>
+        
+        <!-- Objectif 9 -->
+        <div class="objective-card">
+            <div class="objective-number">9</div>
+            <div class="objective-content">
+                <h3>Gouvernance mondiale</h3>
+                <p>Favoriser la participation des pays en développement à la gouvernance mondiale.</p>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Report Section -->
+    <section id="report" class="report-section">
+        <div class="container">
+            <h2 class="section-title">Signaler un incident</h2>
+            <p class="section-subtitle">Remplissez ce formulaire de manière anonyme</p>
+            
+            <form id="reportForm" class="report-form">
+                <div class="form-group">
+                    <label for="incidentType">Type d'incident</label>
+                    <select id="incidentType" required>
+                        <option value="">Sélectionnez un type</option>
+                        <option value="corruption">Corruption</option>
+                        <option value="abuse">Abus de pouvoir</option>
+                        <option value="violence">Violence</option>
+                        <option value="injustice">Injustice</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Localisation</label>
+                    <input type="text" id="location" placeholder="Quartier, commune ou ville" required>
+                    <button type="button" id="locateMe" class="btn-locate"><i class="fas fa-location-arrow"></i> Me localiser</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" placeholder="Décrivez l'incident en détail..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evidence">Preuves (optionnel)</label>
+                    <div class="evidence-upload">
+                        <input type="file" id="evidence" accept="image/*, video/*, audio/*">
+                        <label for="evidence" class="btn-upload"><i class="fas fa-upload"></i> Ajouter des preuves</label>
+                        <span id="fileName">Aucun fichier sélectionné</span>
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="anonymous" checked>
+                    <label for="anonymous">Je souhaite rester anonyme</label>
+                </div>
+                
+                <button type="submit" class="btn-submit">Envoyer le signalement</button>
+            </form>
+            
+            <div class="privacy-notice">
+                <p><i class="fas fa-lock"></i> Vos informations sont protégées. Nous ne collectons pas de données personnelles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Carte des signalements</h2>
+            <p class="section-subtitle">Visualisez les incidents signalés dans votre région</p>
+            
+            <div class="map-filters">
+                <select id="mapFilter">
+                    <option value="all">Tous les incidents</option>
+                    <option value="corruption">Corruption</option>
+                    <option value="abuse">Abus de pouvoir</option>
+                    <option value="violence">Violence</option>
+                    <option value="injustice">Injustice</option>
+                </select>
+                <select id="regionFilter">
+                    <option value="all">Toutes les régions</option>
+                    <option value="region1">Région 1</option>
+                    <option value="region2">Région 2</option>
+                    <option value="region3">Région 3</option>
+                </select>
+            </div>
+            
+            <div id="incidentMap"></div>
+            
+            <div class="map-legend">
+                <div class="legend-item"><span class="legend-color corruption"></span> Corruption</div>
+                <div class="legend-item"><span class="legend-color abuse"></span> Abus de pouvoir</div>
+                <div class="legend-item"><span class="legend-color violence"></span> Violence</div>
+                <div class="legend-item"><span class="legend-color injustice"></span> Injustice</div>
+                <div class="legend-item"><span class="legend-color other"></span> Autre</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">CivAlert en chiffres</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalReports">1,245</div>
+                    <div class="stat-label">Signalements</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="resolvedCases">632</div>
+                    <div class="stat-label">Cas résolus</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activeRegions">24</div>
+                    <div class="stat-label">Régions actives</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="partnerOrgs">18</div>
+                    <div class="stat-label">Partenaires</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">À propos de CivAlert</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>CivAlert est une plateforme citoyenne qui permet de signaler anonymement des cas de corruption, d'abus de pouvoir ou d'injustices dans votre communauté.</p>
+                    <p>Notre mission est de favoriser la transparence, la justice et la paix sociale en donnant une voix aux citoyens et en créant un pont avec les acteurs de la justice et les organisations de la société civile.</p>
+                    <p>Nous nous alignons avec l'Objectif de Développement Durable 16 des Nations Unies pour promouvoir des sociétés pacifiques et inclusives.</p>
+                    <a href="#" class="btn-learn-more">En savoir plus</a>
+                </div>
+                <div class="about-image">
+                    <img src="/images/civ_alert.png" alt="À propos de CivAlert">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Types of Issues -->
+    <section class="issues-section">
+        <div class="container">
+            <h2 class="section-title">Types de problèmes que vous pouvez signaler</h2>
+            
+            <div class="issues-grid">
+                <div class="issue-card">
+                    <div class="issue-image">
+                        <img src="images/corruption.png" alt="Corruption">
+                    </div>
+                    <h3>Corruption</h3>
+                    <p>Détournement de fonds publics, pots-de-vin, favoritisme, népotisme dans les services publics.</p>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-image">
+                        <img src="images/abus_pouvoir.png" alt="Abus de pouvoir">
+                    </div>
+                    <h3>Abus de pouvoir</h3>
+                    <p>Utilisation abusive de l'autorité par des fonctionnaires, policiers ou autres responsables.</p>
+                </div>
+                <div class="issue-card">
+                    <div class="issue-image">
+                        <img src="images/violence.png" alt="Injustice">
+                    </div>
+                    <h3>Violences & Injustices</h3>
+                    <p>Violences policières, discriminations, arrestations arbitraires, dénis de justice.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Accès partenaire</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="orgEmail">Email institutionnel</label>
+                    <input type="email" id="orgEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="orgPassword">Mot de passe</label>
+                    <input type="password" id="orgPassword" required>
+                </div>
+                <a href="dashbord.html" class="btn-submit">Se connecter</a>
+            </form>
+            <p class="modal-footer">Vous êtes une organisation et souhaitez devenir partenaire ? <a href="#">Contactez-nous</a></p>
+        </div>
+    </div>
+
+    <!-- Report Confirmation Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Signalement envoyé !</h2>
+            <p>Votre signalement a été enregistré de manière anonyme. Merci pour votre contribution à la transparence et à la justice.</p>
+            <p>Numéro de référence: <strong id="reportId">CA-2023-5874</strong></p>
+            <button class="btn-primary close-confirmation">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h1>CivAlert</h1>
+                    <p>La voix du citoyen, pour une justice accessible.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Liens utiles</h3>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#report">Signaler un incident</a></li>
+                        <li><a href="#map">Carte des signalements</a></li>
+                        <li><a href="#about">À propos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Ressources</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Guide de sécurité</a></li>
+                        <li><a href="#">Devenir partenaire</a></li>
+                        <li><a href="#">Rapports annuels</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contact@civalert.org</li>
+                        <li><i class="fas fa-phone"></i> 01 02 03 04 05</li>
+                        <li><i class="fas fa-map-marker-alt"></i>Yopougon - Mamie Adjoua</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>CivAlert &copy; 2025. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="#">Confidentialité</a>
+                    <a href="#">Conditions d'utilisation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
