@@ -2,12 +2,9 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>CivAlert - Tableau de bord ONG</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
       :root {
         --primary: #3498db;
@@ -17,6 +14,8 @@
         --dark: #2c3e50;
         --light: #ecf0f1;
         --gray: #95a5a6;
+        --sidebar-width: 250px;
+        --header-height: 60px;
       }
 
       * {
@@ -30,11 +29,12 @@
         background-color: #f5f7fa;
         color: #333;
         line-height: 1.6;
+        overflow-x: hidden;
       }
 
       .container {
         display: grid;
-        grid-template-columns: 250px 1fr;
+        grid-template-columns: var(--sidebar-width) 1fr;
         min-height: 100vh;
       }
 
@@ -46,6 +46,8 @@
         position: sticky;
         top: 0;
         height: 100vh;
+        transition: transform 0.3s ease;
+        z-index: 100;
       }
 
       .logo {
@@ -55,8 +57,9 @@
         margin-bottom: 20px;
       }
 
-      .logo h2 {
-        font-size: 1.3rem;
+      .logo h1 {
+        font-size: 1.5rem;
+        white-space: nowrap;
       }
 
       .logo img {
@@ -81,6 +84,7 @@
         text-decoration: none;
         border-radius: 5px;
         transition: all 0.3s;
+        white-space: nowrap;
       }
 
       .nav-link:hover,
@@ -93,11 +97,14 @@
         margin-right: 10px;
         width: 20px;
         text-align: center;
+        font-size: 1.1rem;
       }
 
       /* Main Content */
       .main-content {
         padding: 20px;
+        width: 100%;
+        overflow-x: hidden;
       }
 
       .header {
@@ -105,23 +112,31 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
       }
 
       .header h1 {
         color: var(--dark);
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
+        flex: 1;
+        min-width: 200px;
       }
 
       .user-menu {
         display: flex;
         align-items: center;
+        gap: 10px;
+      }
+
+      .user-menu span {
+        font-size: clamp(0.9rem, 2vw, 1rem);
       }
 
       .user-menu img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        margin-left: 15px;
       }
 
       /* Stats Cards */
@@ -139,6 +154,7 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         position: relative;
         overflow: hidden;
+        min-width: 0;
       }
 
       .stat-card::before {
@@ -167,13 +183,13 @@
       }
 
       .stat-title {
-        font-size: 0.9rem;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
         color: var(--gray);
         margin-bottom: 5px;
       }
 
       .stat-value {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
         font-weight: 700;
         margin-bottom: 10px;
       }
@@ -181,7 +197,8 @@
       .stat-change {
         display: flex;
         align-items: center;
-        font-size: 0.85rem;
+        font-size: clamp(0.75rem, 2vw, 0.85rem);
+        gap: 5px;
       }
 
       .stat-change.positive {
@@ -200,17 +217,12 @@
         margin-bottom: 30px;
       }
 
-      @media (max-width: 1200px) {
-        .charts {
-          grid-template-columns: 1fr;
-        }
-      }
-
       .chart-container {
         background-color: white;
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        min-width: 0;
       }
 
       .chart-header {
@@ -218,10 +230,12 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
       }
 
       .chart-header h3 {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
         color: var(--dark);
       }
 
@@ -230,6 +244,7 @@
         border-radius: 5px;
         border: 1px solid #ddd;
         background-color: white;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
       }
 
       .chart-placeholder {
@@ -248,6 +263,7 @@
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        overflow-x: auto;
       }
 
       .reports-header {
@@ -255,16 +271,19 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 15px;
       }
 
       .reports-header h3 {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
         color: var(--dark);
       }
 
       .reports-filter {
         display: flex;
         gap: 10px;
+        flex-wrap: wrap;
       }
 
       .reports-filter select,
@@ -272,11 +291,19 @@
         padding: 8px 12px;
         border-radius: 5px;
         border: 1px solid #ddd;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        min-width: 150px;
+      }
+
+      .reports-filter input {
+        flex: 1;
+        min-width: 200px;
       }
 
       .reports-table {
         width: 100%;
         border-collapse: collapse;
+        min-width: 600px;
       }
 
       .reports-table th {
@@ -285,19 +312,22 @@
         background-color: #f8f9fa;
         color: var(--dark);
         font-weight: 600;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
       }
 
       .reports-table td {
         padding: 12px 15px;
         border-bottom: 1px solid #eee;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
       }
 
       .report-status {
         display: inline-block;
         padding: 4px 10px;
         border-radius: 20px;
-        font-size: 0.8rem;
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
         font-weight: 500;
+        white-space: nowrap;
       }
 
       .status-pending {
@@ -321,12 +351,18 @@
       }
 
       .action-btn {
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 4px;
         border: none;
         cursor: pointer;
-        font-size: 0.85rem;
+        font-size: clamp(0.7rem, 2vw, 0.85rem);
         margin-right: 5px;
+        white-space: nowrap;
+        transition: all 0.2s;
+      }
+
+      .action-btn:active {
+        transform: scale(0.95);
       }
 
       .view-btn {
@@ -339,40 +375,74 @@
         color: white;
       }
 
-      /* Responsive */
+      /* Menu Toggle Button */
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 10px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 101;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 1200px) {
+        .charts {
+          grid-template-columns: 1fr;
+        }
+      }
+
       @media (max-width: 992px) {
         .container {
           grid-template-columns: 1fr;
+          position: relative;
         }
 
         .sidebar {
-          height: auto;
-          position: relative;
-          padding: 15px;
+          position: fixed;
+          width: var(--sidebar-width);
+          height: 100vh;
+          transform: translateX(-100%);
+          z-index: 100;
         }
 
-        .nav-menu {
+        .sidebar.show {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .menu-toggle {
+          display: block;
+        }
+
+        .nav-items-container {
           display: flex;
-          flex-wrap: wrap;
-          gap: 5px;
+          flex-direction: column;
         }
 
         .nav-item {
-          flex: 1 0 calc(50% - 5px);
+          width: 100%;
         }
 
         .nav-link {
-          justify-content: center;
-          padding: 10px;
+          justify-content: flex-start;
         }
 
         .nav-link i {
-          margin-right: 0;
-          margin-bottom: 5px;
+          margin-right: 10px;
+          margin-bottom: 0;
         }
 
         .nav-text {
-          display: none;
+          display: inline;
         }
       }
 
@@ -381,15 +451,21 @@
           grid-template-columns: 1fr 1fr;
         }
 
+        .header {
+          flex-direction: row;
+        }
+
         .reports-filter {
-          flex-direction: column;
           width: 100%;
         }
 
-        .header {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 15px;
+        .reports-filter select,
+        .reports-filter input {
+          width: 100%;
+        }
+
+        .action-btn {
+          margin-bottom: 5px;
         }
       }
 
@@ -398,87 +474,77 @@
           grid-template-columns: 1fr;
         }
 
-        .reports-table {
-          display: block;
-          overflow-x: auto;
-        }
-      }
-
-      .nav-link i {
-        width: 25px;
-        text-align: center;
-        margin-right: 10px;
-      }
-
-      /* Styles pour tablettes */
-      @media (max-width: 992px) {
-        .nav-items-container {
-          flex-direction: row;
-          flex-wrap: wrap;
+        :root {
+          --sidebar-width: 80%;
         }
 
-        .nav-item {
-          flex: 1 0 calc(50% - 5px);
-        }
-      }
-
-      /* Styles pour mobiles */
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: block;
-        }
-
-        .nav-items-container {
-          display: none;
-          flex-direction: column;
-          margin-top: 10px;
-        }
-
-        .nav-items-container.show {
-          display: flex;
-        }
-
-        .nav-item {
-          flex: 1 0 100%;
+        .logo h1 {
+          font-size: 1.3rem;
         }
 
         .nav-link {
           padding: 10px 15px;
         }
+
+        .action-btn {
+          display: block;
+          width: 100%;
+          margin-bottom: 5px;
+        }
       }
 
-      /* Animation pour le menu */
-      @keyframes slideDown {
+      /* Overlay for mobile menu */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+
+      .overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Animation for menu */
+      @keyframes slideIn {
         from {
-          opacity: 0;
-          transform: translateY(-10px);
+          transform: translateX(-100%);
         }
         to {
-          opacity: 1;
-          transform: translateY(0);
+          transform: translateX(0);
         }
       }
 
-      .nav-items-container.show {
-        animation: slideDown 0.3s ease-out;
+      .sidebar.show {
+        animation: slideIn 0.3s ease-out;
       }
     </style>
   </head>
   <body>
+    <div class="overlay" id="overlay"></div>
+    
     <div class="container">
       <!-- Sidebar -->
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          <i class="fas fa-times"></i>
+        </button>
+
         <div class="logo">
-          <h1>CivAlert</h1>
+          <h1>CivAlert <br>
+            ONG POUR TOUS
+          </h1>
         </div>
 
         <nav class="nav-menu">
-          <!-- Bouton menu burger (visible seulement sur mobile) -->
-          <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-          </button>
-
-          <!-- Contenu du menu -->
+          <!-- Menu Content -->
           <div class="nav-items-container" id="navItems">
             <div class="nav-item">
               <a href="#" class="nav-link active">
@@ -523,10 +589,11 @@
       <!-- Main Content -->
       <main class="main-content">
         <div class="header">
+          <button class="menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <i class="fas fa-bars" style="color: var(--dark);"></i>
+          </button>
           <h1>Tableau de bord des signalements</h1>
-          <div class="user-menu">
-            <span>ONG POUR TOUS</span>
-          </div>
+          
         </div>
 
         <!-- Stats Grid -->
@@ -557,6 +624,41 @@
             <div class="stat-value">12</div>
             <div class="stat-change positive">
               <i class="fas fa-arrow-up"></i> 3% vs mois dernier
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts">
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3>Évolution des signalements</h3>
+              <div class="chart-actions">
+                <select>
+                  <option>30 derniers jours</option>
+                  <option>7 derniers jours</option>
+                  <option>Cette année</option>
+                </select>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--gray);"></i>
+              <span style="margin-left: 10px;">Graphique d'évolution</span>
+            </div>
+          </div>
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3>Répartition par type</h3>
+              <div class="chart-actions">
+                <select>
+                  <option>Tous types</option>
+                  <option>Urgents seulement</option>
+                </select>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <i class="fas fa-chart-pie" style="font-size: 2rem; color: var(--gray);"></i>
+              <span style="margin-left: 10px;">Graphique de répartition</span>
             </div>
           </div>
         </div>
@@ -661,22 +763,42 @@
         </div>
       </main>
     </div>
+
+    <script>
+      // Gestion du menu burger
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+      const menuToggle = document.getElementById("menuToggle");
+
+      function toggleMenu() {
+        sidebar.classList.toggle("show");
+        overlay.classList.toggle("show");
+        document.body.style.overflow = sidebar.classList.contains("show") ? "hidden" : "auto";
+      }
+
+      mobileMenuToggle.addEventListener("click", toggleMenu);
+      menuToggle.addEventListener("click", toggleMenu);
+      overlay.addEventListener("click", toggleMenu);
+
+      // Fermer le menu quand un lien est cliqué (sur mobile)
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", function() {
+          if (window.innerWidth <= 992) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // Adapte la taille de la sidebar à la hauteur de l'écran
+      function adjustSidebarHeight() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+      }
+
+      // Initialisation et écouteur de redimensionnement
+      adjustSidebarHeight();
+      window.addEventListener('resize', adjustSidebarHeight);
+    </script>
   </body>
 </html>
-
-<script>
-  // Gestion du menu burger
-  document.getElementById("menuToggle").addEventListener("click", function () {
-    const navItems = document.getElementById("navItems");
-    navItems.classList.toggle("show");
-  });
-
-  // Fermer le menu quand un lien est cliqué (sur mobile)
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", function () {
-      if (window.innerWidth <= 768) {
-        document.getElementById("navItems").classList.remove("show");
-      }
-    });
-  });
-</script>
